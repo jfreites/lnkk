@@ -1,0 +1,42 @@
+body {
+	background-color: rgb(212, 212, 212);
+}
+header, section {
+	margin: 0 auto;
+	padding-top: 20px;
+	width: 900px;
+}
+.header__logo {
+	text-align: center;
+}
+.section__form, .section__shorturl {
+	text-align: center;
+	padding: 20px 40px 20px 40px;
+}
+.section__form-input {
+	width: 450px;
+	height: 30px;
+	border: 6px solid #ccc;
+	border-radius: 7px;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+.section__form-input:focus { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+.section__form-btn {
+	color: #2d4872;
+	font-weight: bold;
+	font-size: 150%;
+	text-transform: uppercase;
+	border-radius: 7px;
+}
+.section__shorturl-placeholder {
+	padding: 20px;
+	background-color: #fff;
+	width: 300px;
+	visibility: hidden;
+    margin: 0 auto;
+}
