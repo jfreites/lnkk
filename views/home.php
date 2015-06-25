@@ -46,9 +46,11 @@
 				// ajax request
 				var encoding = $.post('/encode', { long_url : url });
 
+				var baseUrl = '<?= $baseUrl; ?>';
+
 				encoding.done(function(res) {
 					//console.log(res);
-                    $('#lnk_url').html('<a target="_blank" href="http://lnkk.app/' + res + '">http://lnkk.app/' + res + '</a>');
+                    $('#lnk_url').html('<a target="_blank" href="' + baseUrl + '/' + res + '">http://' + baseUrl + '/' + res + '</a>');
 				});
 
 				var placeholder = $('.section__shorturl-placeholder');

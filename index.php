@@ -5,7 +5,7 @@ session_start();
 
 require 'vendor/autoload.php';
 
-require_once 'lib/mysql.php';
+require_once 'lib/MySql.php';
 require_once 'lib/ShortUrl.php';
 require_once 'config.php';
 
@@ -13,18 +13,28 @@ require_once 'config.php';
 
 $app = new \Slim\Slim(
 	array(
-        'log.enabled'    => $app['debug'],
-        'templates.path' => $app['view_path'],
+        'log.enabled'    => $config['debug'],
+        'templates.path' => $config['view_path'],
     )
 );
 
 $db = connect_db();
 $shortUrl = new ShortUrl($db);
 
+// Setup some things for the view...
+
+$app->hook('slim.before', function() use ($app) {
+	$app->view()->appendData(
+		array('baseUrl' => 'http://lnkk.mx')
+	);
+});
+
 // Routes...
 
 $app->get('/', function() use ($app) {
-    $app->render('home.php', array('title' => 'Lnkk.it - Acorta | Comparte | Mide'));
+    $app->render('home.php', 
+    	array('title' => 'Lnkk.mx - Acorta | Comparte | Mide')
+    );
 });
 
 $app->get('/error', function() use ($app) {
@@ -42,7 +52,6 @@ $app->post('/encode', function() use ($app, $shortUrl) {
 	}
 	catch (Exception $e) {
         $app->flash('error', $e->getMessage());
-		$app->redirect('http://lnkk.app');
 	}
 });
 
@@ -52,15 +61,12 @@ $app->get('/:hash', function($hash) use ($app, $shortUrl) {
 	try {
 
         $url = $shortUrl->shortCodeToUrl($hash);
-
         $app->redirect($url);
-	}
-	catch (Exception $e) {
-        $app->flash('error', $e->getMessage());
-        var_dump($e->getMessage());
-	    //$app->redirect('http://lnkk.app');
-	}
 
+	} catch (Exception $e) {
+        $app->flash('error', $e->getMessage());
+        //var_dump($e->getMessage());
+	}
 
 });
 

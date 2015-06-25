@@ -1,6 +1,6 @@
 <?php
 
-$app = array(
+$config = array(
 	'debug'     => true,
 	'view_path' => './views'
 );
